@@ -20,12 +20,12 @@
         "z": "f6f2187d.f17ca8",
         "name": "make request",
         "props": [],
-        "repeat": "60",
+        "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 140,
+        "x": 130,
         "y": 40,
         "wires": [
             [
@@ -84,7 +84,7 @@
         "onceDelay": 0.1,
         "topic": "",
         "x": 90,
-        "y": 160,
+        "y": 40,
         "wires": [
             [
                 "9ea739ec669869f7"
@@ -102,29 +102,12 @@
         "ret": "attr",
         "as": "multi",
         "x": 550,
-        "y": 280,
+        "y": 160,
         "wires": [
             [
-                "1464757badb56620"
+                "d75bc5397b78d72d"
             ]
         ]
-    },
-    {
-        "id": "1464757badb56620",
-        "type": "debug",
-        "z": "8740483696a24298",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload.href",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 710,
-        "y": 180,
-        "wires": []
     },
     {
         "id": "2047e2d57e2531dc",
@@ -138,7 +121,7 @@
         "stream": false,
         "addname": "",
         "x": 370,
-        "y": 160,
+        "y": 40,
         "wires": [
             [
                 "58372bc5588602e9"
@@ -154,32 +137,15 @@
         "fieldType": "msg",
         "format": "text",
         "syntax": "plain",
-        "template": "SubsPlease+Sono+Bisque+Doll+wa+Koi+wo+Suru+1080p\nSubsPlease+Shin+no+Nakama+1080p",
+        "template": "SubsPlease+Sono+Bisque+Doll+wa+Koi+wo+Suru+1080p",
         "output": "str",
         "x": 220,
-        "y": 160,
+        "y": 40,
         "wires": [
             [
                 "2047e2d57e2531dc"
             ]
         ]
-    },
-    {
-        "id": "7176c9789e4c72d4",
-        "type": "debug",
-        "z": "8740483696a24298",
-        "name": "title",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 670,
-        "y": 140,
-        "wires": []
     },
     {
         "id": "f0605f472ff418af",
@@ -196,7 +162,7 @@
         "authType": "",
         "senderr": false,
         "x": 430,
-        "y": 280,
+        "y": 160,
         "wires": [
             [
                 "3f80deff4ddc5373"
@@ -215,12 +181,114 @@
         "finalize": "",
         "libs": [],
         "x": 290,
-        "y": 280,
+        "y": 160,
         "wires": [
             [
-                "f0605f472ff418af",
-                "7176c9789e4c72d4"
+                "f0605f472ff418af"
             ]
         ]
+    },
+    {
+        "id": "a49772bbdfc9cf51",
+        "type": "http request",
+        "z": "8740483696a24298",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "body",
+        "url": "http://10.200.0.33:9091/transmission/rpc",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 230,
+        "y": 220,
+        "wires": [
+            [
+                "5682a306acecc67c"
+            ]
+        ]
+    },
+    {
+        "id": "5682a306acecc67c",
+        "type": "debug",
+        "z": "8740483696a24298",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "headers.x-transmission-session-id",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1200,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "d75bc5397b78d72d",
+        "type": "join",
+        "z": "8740483696a24298",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload.href",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 670,
+        "y": 160,
+        "wires": [
+            [
+                "1464757badb56620"
+            ]
+        ]
+    },
+    {
+        "id": "0de4ef460db4e9bf",
+        "type": "inject",
+        "z": "8740483696a24298",
+        "name": "trigger",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 90,
+        "y": 220,
+        "wires": [
+            [
+                "a49772bbdfc9cf51"
+            ]
+        ]
+    },
+    {
+        "id": "1464757badb56620",
+        "type": "debug",
+        "z": "8740483696a24298",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 60,
+        "wires": []
     }
 ]
